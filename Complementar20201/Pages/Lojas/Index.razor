@@ -1,0 +1,65 @@
+﻿@page "/Stores"
+@using Models
+
+
+<h1>Lojas</h1>
+
+
+@if (stores == null)
+{
+    <text>Nenhum Cliente foi cadastrado no banco de dados</text>
+}
+else
+{
+    <div class="row">
+        <div class="col-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome da Loja</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th>Rua</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                        <th>Zip Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in stores)
+                    {
+                    <tr>
+                        <td>@x.StoreName</td>
+                        <td>@x.Phone</td>
+                        <td>@x.Email</td>
+                        <td>@x.Street</td>
+                        <td>@x.City</td>
+                        <td>@x.State</td>
+                        <td>@x.ZipCode</td>
+                        <td>
+                            <button class="btn btn-danger" @onclick="@(() => DeleteStores(x.StoreId))">Delete</button>
+                        </td>
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code{
+    complementar20201Context db = new complementar20201Context();
+
+    private List<Stores> stores;
+
+    protected override void OnInitialized()
+    {
+        stores = db.Stores.ToList();
+    }
+    private async Task DeleteStores(int Id)
+    {
+
+    }
+
+}

@@ -1,0 +1,66 @@
+﻿@page "/Customer"
+@using Models
+
+<h1>Clientes</h1>
+
+
+@if (customers == null)
+{
+    <text>Nenhum Cliente foi cadastrado no banco de dados</text>
+}
+else
+{
+    <div class="row">
+        <div class="col-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sobrenome</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th>Rua</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                        <th>Zip Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in customers)
+                    {
+                    <tr>
+                        <td>@customer.FirstName </td>
+                        <td>@customer.LastName</td>
+                        <td>@customer.Phone</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.Street</td>
+                        <td>@customer.City</td>
+                        <td>@customer.State</td>
+                        <td>@customer.ZipCode</td>
+                        <td>
+                            <button class="btn btn-danger" @onclick="@(() => DeleteCliente(customer.CustomerId))">Delete</button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code{
+    complementar20201Context db = new complementar20201Context();
+
+    private List<Customers> customers;
+
+    protected override void OnInitialized()
+    {
+        customers = db.Customers.ToList();
+    }
+
+    private async Task DeleteCliente(int Id)
+    {
+
+    }
+
+}

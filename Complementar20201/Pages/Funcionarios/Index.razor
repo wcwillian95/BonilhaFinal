@@ -1,0 +1,57 @@
+﻿@page "/Staffs"
+@using Models
+
+<h1>Funcionários!</h1>
+
+
+@if (staffs == null)
+{
+    <text>Nenhum Cliente foi cadastrado no banco de dados</text>
+}
+else
+{
+    <div class="row">
+        <div class="col-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sobrenome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var staff in staffs)
+                    {
+                    <tr>
+                        <td>@staff.FirstName</td>
+                        <td>@staff.LastName</td>
+                        <td>@staff.Email</td>
+                        <td>@staff.Phone</td>
+                        <td>
+                            <button class="btn btn-danger" @onclick="@(() => DeleteStaff(staff.StaffId))">Delete</button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code{
+    complementar20201Context db = new complementar20201Context();
+
+    private List<Staffs> staffs;
+
+    protected override void OnInitialized()
+    {
+        staffs = db.Staffs.ToList();
+    }
+
+    private async Task DeleteStaff(int Id)
+    {
+
+    }
+}

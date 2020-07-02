@@ -1,0 +1,58 @@
+﻿@page "/Order"
+@using Models
+
+<h1>Pedidos!</h1>
+
+
+@if (orders == null)
+{
+    <text>Nenhum Cliente foi cadastrado no banco de dados</text>
+}
+else
+{
+    <div class="row">
+        <div class="col-10">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nº Pedido</th>
+                        <th>Status</th>
+                        <th>Data</th>
+                        <th>Data de Requisição</th>
+                        <th>Data de Envio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in orders)
+                    {
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>@order.OrderStatus</td>
+                        <td>@order.OrderDate</td>
+                        <td>@order.RequiredDate</td>
+                        <td>@order.ShippedDate</td>
+                        <td>
+                            <button class="btn btn-danger" @onclick="@(() => DeleteOrder(order.OrderId))">Delete</button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code{
+    complementar20201Context db = new complementar20201Context();
+
+    private List<Orders> orders;
+
+    protected override void OnInitialized()
+    {
+        orders = db.Orders.ToList();
+    }
+    private async Task DeleteOrder(int Id)
+    {
+
+    }
+}
